@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱游戏 · 日常运动查询与延伸阅读</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #f9e3c3 0%, #f1d5b0 35%, #e7c191 70%, #d9ae7a 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem 1.2rem 2rem;
+            line-height: 1.7;
+            color: #30271c;
+        }
+
+        .magazine-card {
+            max-width: 920px;
+            width: 100%;
+            background: #fffcf7;
+            border-radius: 38px;
+            box-shadow: 0 18px 36px rgba(110, 70, 30, 0.18), 0 8px 16px rgba(0, 0, 0, 0.05);
+            padding: 2.8rem 2.5rem;
+            transition: box-shadow 0.2s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1.5rem 0.8rem;
+            }
+            .magazine-card {
+                padding: 2rem 1.3rem;
+                border-radius: 28px;
+            }
+        }
+
+        /* -------- hero 横幅 -------- */
+        .hero {
+            margin-bottom: 2.8rem;
+            text-align: left;
+            border-bottom: 2px solid #eddcc9;
+            padding-bottom: 1.6rem;
+        }
+
+        .hero-tag {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #a78664;
+            background: #f1e2d1;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            margin-bottom: 1.1rem;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-size: 2.7rem;
+            font-weight: 420;
+            letter-spacing: -0.01em;
+            color: #3b2b1b;
+            line-height: 1.2;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            background: #eedbc7;
+            padding: 0 8px;
+            border-radius: 6px;
+            color: #3b2b1b;
+        }
+
+        .hero p {
+            margin-top: 0.8rem;
+            font-size: 1.05rem;
+            color: #5a4a37;
+            max-width: 70%;
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                max-width: 100%;
+                font-size: 0.98rem;
+            }
+        }
+
+        /* 背景说明卡片 —— 略似杂志 callout */
+        .background-note {
+            background: #f8efe4;
+            border-radius: 24px;
+            padding: 1.6rem 2rem;
+            margin-bottom: 2.8rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .background-note .prefix {
+            font-weight: 500;
+            color: #8b6f4f;
+            white-space: nowrap;
+            font-size: 0.95rem;
+            background: #e5d0bb;
+            padding: 0.1rem 1rem;
+            border-radius: 30px;
+        }
+
+        .background-note .desc {
+            flex: 1;
+            color: #3d3226;
+            font-size: 0.98rem;
+        }
+
+        /* -------- 三段自然介绍 (杂志文章段落) -------- */
+        .section-block {
+            margin-bottom: 2.4rem;
+        }
+
+        .section-block h2 {
+            font-size: 1.6rem;
+            font-weight: 420;
+            letter-spacing: -0.01em;
+            color: #362a1d;
+            margin-bottom: 0.8rem;
+            border-left: 6px solid #ceb094;
+            padding-left: 1rem;
+        }
+
+        .section-block p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #3b3127;
+            text-align: justify;
+        }
+
+        .section-block p a {
+            color: #8f6b42;
+            text-decoration: none;
+            font-weight: 450;
+            background: #f3e6d9;
+            padding: 0.08rem 0.35rem;
+            border-radius: 14px;
+            transition: background 0.15s ease, color 0.1s;
+            border-bottom: 1px solid #cbaf90;
+        }
+
+        .section-block p a:hover {
+            background: #dbbc9b;
+            color: #2f2013;
+            border-bottom-color: #9e7a59;
+        }
+
+        .inset-quote {
+            background: #fcf5ec;
+            padding: 0.9rem 1.5rem;
+            border-radius: 28px;
+            font-style: normal;
+            color: #4d3d2b;
+            margin: 1.2rem 0 0.5rem;
+            font-size: 0.95rem;
+            border: 1px solid #e5d1ba;
+            box-shadow: inset 0 1px 4px rgba(180, 130, 80, 0.06);
+        }
+
+        /* -------- FAQ 摘要 (杂志附栏) -------- */
+        .faq-mini {
+            background: #f5ece0;
+            border-radius: 28px;
+            padding: 1.5rem 1.8rem;
+            margin-top: 0.8rem;
+            margin-bottom: 2.8rem;
+        }
+
+        .faq-mini h3 {
+            font-size: 1.15rem;
+            font-weight: 450;
+            color: #3f3020;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .faq-mini h3:before {
+            content: "▍";
+            color: #b68f69;
+            font-size: 1.4rem;
+        }
+
+        .faq-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 0.9rem;
+        }
+
+        .faq-item strong {
+            font-weight: 500;
+            color: #4d3822;
+            font-size: 0.98rem;
+        }
+
+        .faq-item span {
+            color: #4a3c2d;
+            font-size: 0.92rem;
+            padding-left: 0.3rem;
+        }
+
+        .faq-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 页尾访问提示 */
+        .footer-note {
+            border-top: 2px solid #e3d0bb;
+            padding-top: 1.4rem;
+            margin-top: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1rem 0.5rem;
+        }
+
+        .footer-note .visit-hint {
+            font-size: 0.95rem;
+            color: #4f3d2b;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-note .visit-hint a {
+            background: #cbaa87;
+            color: #fef9f2;
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 450;
+            font-size: 0.95rem;
+            transition: background 0.15s, transform 0.1s;
+            display: inline-block;
+            border: none;
+            box-shadow: 0 2px 6px rgba(120, 75, 30, 0.1);
+        }
+
+        .footer-note .visit-hint a:hover {
+            background: #b58c66;
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(100, 60, 20, 0.15);
+        }
+
+        .footer-note .colophon {
+            font-size: 0.82rem;
+            color: #7d6a55;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 480px) {
+            .footer-note {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* 小装饰 */
+        .muted-line {
+            color: #b0967b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="magazine-card">
+
+    <!-- hero 横幅 -->
+    <div class="hero">
+        <span class="hero-tag">INQUIRY · SIDE READING</span>
+        <h1>日常查询，对照与<em>延伸</em></h1>
+        <p>运动资讯、赛事记录、装备参考——从一次简单检索开始，逐渐搭建属于自己的运动知识角落。</p>
+    </div>
+
+    <!-- 背景说明卡片 -->
+    <div class="background-note">
+        <span class="prefix">背景</span>
+        <span class="desc">
+            信息获取的方式早已不止于单一的搜索框。很多人习惯在日常打开一个站点，查最近赛程、对比跑鞋数据，或者只是翻翻运动休闲的杂谈。在这样细碎的浏览中，一个清晰、克制的信息源往往比花哨的推送更令人安心。
+        </span>
+    </div>
+
+    <!-- 三段自然介绍 (杂志段落) -->
+    <div class="section-block">
+        <h2>从一次查询开始</h2>
+        <p>
+            或许只是想知道某项运动的规则细节，或许想回顾一场几个月前的经典对局。越来越多的人把查询当作一种日常仪式——不急于得到结论，而是顺着条目慢慢看下去。就像翻一本纸页泛黄的杂志，偶尔遇到不熟悉的术语，顺手再搜另一个关联词。这种平缓的阅读节奏，在如今显得格外珍贵。
+        </p>
+        <p>
+            在众多可浏览的页面中，<a href="https://mainsports-igame.com">爱游戏</a> 提供了一个相对安静的切口：没有弹窗干扰，没有夸张的标语，页面更像是一份整理好的笔记，等待你按自己的节奏翻阅。你可以从任何一条记录出发，也可以把它当作临时的参照。
+        </p>
+    </div>
+
+    <div class="section-block">
+        <h2>对照与梳理</h2>
+        <p>
+            只看单一来源往往不够——许多爱好者习惯同时打开两三个页面，对比数据、确认日期、核对参赛名单。一个干净的信息页面能减少这种对照中的认知负担。整洁的排布、克制的配色，让视线更容易聚焦在文字本身。
+        </p>
+        <div class="inset-quote">
+            “花半小时看完赛程，再花十分钟把感兴趣的项目记到自己的日程本里——这种感觉比算法推荐更踏实。”
+        </div>
+        <p style="margin-top: 1rem;">
+            在对照过程中，一个始终如一的入口是重要的。不管是为了核实一条旧闻，还是找某个运动员的赛季表现，<a href="https://mainsports-igame.com">爱游戏</a> 保持着稳定的内容框架，让每次返回都不需要重新适应布局。
+        </p>
+    </div>
+
+    <div class="section-block">
+        <h2>延伸阅读的角落</h2>
+        <p>
+            很多人在浏览运动信息时，会不由自主地点开那些看似无关的链接——从装备测评到训练杂谈，从赛事花絮到冷门项目科普。这种延伸式的阅读，常常带来意想不到的收获。好的内容页面应该允许这种漫游，不打断思路，不强制跳转。
+        </p>
+        <p>
+            当你偶尔想离开推送流，找个地方安静地看些运动相关的资料，不妨把 <a href="https://mainsports-igame.com">爱游戏</a> 放在书签栏的某个角落。它不一定每天都更新，但每次点开都像走进一间熟悉的资料室，目录清晰，灯光柔和。
+        </p>
+    </div>
+
+    <!-- FAQ 摘要 (杂志常见问题栏) -->
+    <div class="faq-mini">
+        <h3>常见疑惑 · 简录</h3>
+        <div class="faq-item">
+            <strong>页面内容会频繁变动吗？</strong>
+            <span>更新节奏偏安静，主要围绕赛事日历、项目基础信息与整理类内容，不会突然改版或加入弹窗。</span>
+        </div>
+        <div class="faq-item">
+            <strong>适合移动端阅读吗？</strong>
+            <span>卡片式布局对手机友好，无需左右缩放，段落间距也留了足够余地。</span>
+        </div>
+        <div class="faq-item">
+            <strong>是否需要注册或登录？</strong>
+            <span>目前浏览所有信息都不需要账户，也没有强制关注或下载的环节。</span>
+        </div>
+    </div>
+
+    <!-- 页尾访问提示 (杂志脚注) -->
+    <div class="footer-note">
+        <div class="visit-hint">
+            <span>如你需要一个稳定的起点：</span>
+            <a href="https://mainsports-igame.com">爱游戏</a>
+        </div>
+        <div class="colophon">
+            · 杂志式浏览 · 无推送噪音 ·
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
